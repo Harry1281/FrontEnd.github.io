@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/3.3.0/firebase.js"></script>
+
+</head>
+<script>
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyDgay8ubKzVrNrrWGoWin6es8I3E85qoOA",
+        authDomain: "asm-web207-e483c.firebaseapp.com",
+        databaseURL: "https://asm-web207-e483c-default-rtdb.firebaseio.com",
+        projectId: "asm-web207-e483c",
+        storageBucket: "asm-web207-e483c.appspot.com",
+        messagingSenderId: "469025393033",
+        appId: "1:469025393033:web:dae17a36e90e4f1b133958",
+        measurementId: "G-4ZKQ4H6JP8"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+</script>
+
+<body ng-app="myapp">
+
+    <div class="container" ng-controller="myCtrl">
+        <p>TenSp: <input type="text" ng-model="txtTenSP"></p>
+        <p>Hinh: <input type="text" ng-model="txtHinh"></p>
+        <p>Gia: <input type="text" ng-model="txtGia"></p>
+        <p><button type="button" ng-click="them();">Thêm</button></p>
+    </div>
+
+</body>
+
+</html>
+<script>
+    var app = angular.module("myapp", []);
+    app.controller("myCtrl", function ($scope) {
+        $scope.them = function () {
+            var objSp = {
+                tenSp: $scope.txtTenSP,
+                hinh: $scope.txtHinh,
+                gia: $scope.txtGia
+            };
+            var refSp = database.ref("sanpham");
+            refSp.push(objSp);
+        }
+    });
+</script>
